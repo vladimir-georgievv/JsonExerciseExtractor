@@ -40,11 +40,13 @@
         static void Main()
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+            
             const string regexPattern = "(?<Exercise>[A-Z][a-zA-Z]+)(?:\\n(?<Set>\\d+x\\d+))+";
 
             List<Exercise> exercises = new List<Exercise>();
 
-            string folderPath = @"C:\Users\Vladko\Downloads\Takeout\Keep";
+            //Get the path to the "Keep" folder in the "Downloads" directory
+            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "Takeout", "Keep");
             string[] jsonFiles = Directory.GetFiles(folderPath, "*.json");
 
             foreach (string file in jsonFiles)
@@ -82,7 +84,8 @@
             }
 
             string jsonOuput = JsonConvert.SerializeObject(exercises, Formatting.Indented);
-            string outputFilePath = @"C:\Users\Vladko\Documents\exercises_output.json";
+            string userDocumentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string outputFilePath = Path.Combine(userDocumentsPath, "exercises_output.json");
             File.WriteAllText(outputFilePath, jsonOuput);
         }
     }
