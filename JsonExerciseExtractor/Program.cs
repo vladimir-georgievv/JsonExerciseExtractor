@@ -11,7 +11,6 @@
     {
         public class Exercise
         {
-            string tet;
             public string Name { get; set; }
             public List<Set> Sets { get; set; }
             public Exercise(string name)
